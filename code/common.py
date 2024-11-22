@@ -368,6 +368,7 @@ class App:
         dev = device()
         nn = self.nn_cls.from_args(pde, activation, args).to(dev)
         self.nn = nn
+        print("Trainable Param:", sum(p.numel() for p in nn.parameters() if p.requires_grad))
         plotter = self.plotter_cls.from_args(pde, nn, args)
         self.plotter = plotter
 

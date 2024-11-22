@@ -93,12 +93,12 @@ class Helmotz2D(RegularPDE):
         return (bc**2).sum()
 
 
-#%%
+
 if __name__ == '__main__':
     app = App2D(
         pde_cls=Helmotz2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=500, samples=1000, n_train=25000, lr=1e-3, tol=1e-3)
+    app.run(nodes=200, samples=400, n_train=25000, lr=1e-3, tol=1e-3)
 
 # %%
