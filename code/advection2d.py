@@ -11,7 +11,7 @@ from pde2d_base import RegularPDE
 
 xspan = [0,2*np.pi]
 yspan = [0, 1]
-v = 1
+v = 30
 class Advection2D(RegularPDE):
     def __init__(self, n_nodes, ns, nb=None, nbs=None, sample_frac=1.0):
         self.sample_frac = sample_frac

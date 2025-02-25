@@ -23,6 +23,7 @@ def q(x, y):
     return E1 + E2 + E3 
 
 class Helmotz2D(RegularPDE):
+    """
     def __init__(self, n_nodes, ns, nb=None, nbs=None, sample_frac=1.0):
         self.sample_frac = sample_frac
 
@@ -73,7 +74,7 @@ class Helmotz2D(RegularPDE):
         xb = xb * (xspan[1] - xspan[0]) + xspan[0]
         yb = yb * (yspan[1] - yspan[0]) + yspan[0]
         self.b_samples = (xb, yb)
-
+    """
     def pde(self, x, y, u, ux, uy, uxx, uyy):
         return uxx + uyy + k**2 * u - q(x,y)
 
@@ -99,6 +100,6 @@ if __name__ == '__main__':
         pde_cls=Helmotz2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=200, samples=400, n_train=25000, lr=1e-3, tol=1e-3)
+    app.run(nodes=400, samples=1000, n_train=5000, lr=1e-3, tol=1e-3)
 
 # %%
