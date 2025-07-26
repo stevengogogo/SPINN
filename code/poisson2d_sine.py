@@ -38,4 +38,4 @@ if __name__ == '__main__':
         pde_cls=Poisson2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=100, samples=400, n_train=25000, lr=1e-3, tol=1e-3)
+    app.run(nodes=100, samples=1000, b_samples=200, n_train=100000, lr=1e-3, tol=1e-3)

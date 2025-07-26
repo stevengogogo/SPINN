@@ -83,6 +83,11 @@ class Heat2D(RegularPDE):
         bc = u - ub
         return (bc**2).sum()
 
+    def plot_points(self):
+        n = self.ns*2
+        x, y = np.mgrid[xspan[0]:xspan[-1]:100j, 
+                        yspan[0]:yspan[-1]:100j]
+        return x, y
 
 
 if __name__ == '__main__':
@@ -90,6 +95,6 @@ if __name__ == '__main__':
         pde_cls=Heat2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=200, samples=400, n_train=25000, lr=1e-3, tol=1e-3)
+    app.run(nodes=200, samples=1000, b_sample=200, n_train=20000, lr=1e-3, tol=1e-3)
 
 # %%

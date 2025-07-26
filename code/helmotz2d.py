@@ -92,6 +92,12 @@ class Helmotz2D(RegularPDE):
         ub = tensor(self.exact(xbn, ybn))
         bc = u - ub
         return (bc**2).sum()
+    
+    def plot_points(self):
+        n = self.ns*2
+        x, y = np.mgrid[xspan[0]:xspan[-1]:100j, 
+                        yspan[0]:yspan[-1]:100j]
+        return x, y
 
 
 
@@ -100,6 +106,6 @@ if __name__ == '__main__':
         pde_cls=Helmotz2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=400, samples=1000, n_train=5000, lr=1e-3, tol=1e-3)
+    app.run(nodes=400, samples=1000, b_samples=200, n_train=1_000, lr=1e-3, tol=1e-3)
 
 # %%
