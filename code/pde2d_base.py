@@ -126,7 +126,7 @@ class RegularPDE(PDE):
 
     def plot_points(self):
         n = self.ns*2
-        x, y = np.mgrid[0:1:n*1j, 0:1:n*1j]
+        x, y = np.mgrid[0:1:100j, 0:1:100j]
         return x, y
 
     def _get_residue(self, nn):

@@ -266,7 +266,11 @@ class Optimizer:
             loss = opt.step(self.closure)
             if err < self.tol:
                 iterations_done = True
-            if i % n_skip == 0 or i == n_train or iterations_done:
+            if i % n_skip == 0:
+                print(
+                    f"Iteration ({i}/{n_train}): Loss={loss.item():.3e}"
+                )
+            if i == n_train or iterations_done:
                 err_L1 = 0.0
                 err_L2 = 0.0
                 err_Linf = 0.0
@@ -278,7 +282,7 @@ class Optimizer:
                 self.errors_L2.append(err_L2)
                 self.errors_Linf.append(err_Linf)
                 if self.pde.has_exact():
-                    e_str = f", Linf error={err_Linf:.3e}"
+                    e_str = f", L1 error={err_L1:.3e}"
                 else:
                     e_str = ''
                 print(

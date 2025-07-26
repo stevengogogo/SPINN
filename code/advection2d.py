@@ -9,21 +9,10 @@ from common import tensor
 from spinn2d import Plotter2D, SPINN2D, App2D
 from pde2d_base import RegularPDE
 
-PI = np.pi
-a1 = 1.
-a2 = 1.
-k=1.
-xspan = yspan = [-3,3]
-def q(x, y):
-
-    E1 =  - (a1 * torch.pi)**2 * torch.sin(a1 * torch.pi * x) * torch.sin(a2 * torch.pi * y)
-    E2 =  - (a2 * torch.pi)**2 * torch.sin(a1 * torch.pi * x) * torch.sin(a2 * torch.pi * y)
-    E3 = k**2 * torch.sin(a1 * torch.pi * x) * torch.sin(a2 * torch.pi * y)
-    
-    return E1 + E2 + E3 
-
-class Helmotz2D(RegularPDE):
-    """
+xspan = [0,2*np.pi]
+yspan = [0, 1]
+v = 30
+class Advection2D(RegularPDE):
     def __init__(self, n_nodes, ns, nb=None, nbs=None, sample_frac=1.0):
         self.sample_frac = sample_frac
 
@@ -74,15 +63,15 @@ class Helmotz2D(RegularPDE):
         xb = xb * (xspan[1] - xspan[0]) + xspan[0]
         yb = yb * (yspan[1] - yspan[0]) + yspan[0]
         self.b_samples = (xb, yb)
-    """
+
     def pde(self, x, y, u, ux, uy, uxx, uyy):
-        return uxx + uyy + k**2 * u - q(x,y)
+        return v * ux + uy
 
     def has_exact(self):
         return True
 
     def exact(self, x, y):
-        return np.sin(a1 * np.pi * x) * np.sin(a2 * np.pi * y)
+        return np.sin(x- v*y)
 
     def boundary_loss(self, nn):
         xb, yb = self.boundary()
@@ -92,7 +81,7 @@ class Helmotz2D(RegularPDE):
         ub = tensor(self.exact(xbn, ybn))
         bc = u - ub
         return (bc**2).sum()
-    
+
     def plot_points(self):
         n = self.ns*2
         x, y = np.mgrid[xspan[0]:xspan[-1]:100j, 
@@ -103,9 +92,9 @@ class Helmotz2D(RegularPDE):
 
 if __name__ == '__main__':
     app = App2D(
-        pde_cls=Helmotz2D, nn_cls=SPINN2D,
+        pde_cls=Advection2D, nn_cls=SPINN2D,
         plotter_cls=Plotter2D
     )
-    app.run(nodes=400, samples=1000, b_samples=200, n_train=1_000, lr=1e-3, tol=1e-3)
+    app.run(nodes=100, samples=1000, b_sample=200, n_train=60_000, lr=1e-3, tol=1e-3)
 
 # %%

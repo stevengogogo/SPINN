@@ -1,0 +1,13 @@
+Trainable Param: 1761
+Iteration (100/1000): Loss=7.375e-02
+Iteration (200/1000): Loss=1.335e-02
+Iteration (300/1000): Loss=1.516e-02
+Iteration (400/1000): Loss=1.656e-02
+Iteration (500/1000): Loss=1.674e-02
+Iteration (600/1000): Loss=1.259e-02
+Iteration (700/1000): Loss=1.045e-02
+Iteration (800/1000): Loss=6.351e-03
+Iteration (900/1000): Loss=1.046e-02
+Iteration (1000/1000): Loss=9.218e-03
+Iteration (1000/1000): Loss=9.218e-03, L1 error=3.874e-01
+Done. Took 34.574 seconds.
